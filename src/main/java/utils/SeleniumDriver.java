@@ -26,29 +26,32 @@ public class SeleniumDriver {
     public final static int PAGE_LOAD_TIMEOUT = 50;
 
     private  SeleniumDriver() {
-        System.setProperty("webdriver.gecko.driver",
-                "/usr/local/bin/geckodriver");
-       // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
-       // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
-    	driver = new FirefoxDriver();
-        driver.manage().window().maximize();
+//        System.setProperty("webdriver.gecko.driver",
+//                "/usr/local/bin/geckodriver");
+//       // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
+//       // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
+//    	driver = new FirefoxDriver();
+//        driver.manage().window().maximize();
+//
+//        waitDriver = new WebDriverWait(driver, TIMEOUT);
+//        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
+//        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+//        String window=driver.getWindowHandle();
+//        System.out.println("Window ->"+window);
 
-        waitDriver = new WebDriverWait(driver, TIMEOUT);
-        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        String window=driver.getWindowHandle();
-        System.out.println("Window ->"+window);
 
-
+        String path = System.getProperty("user.dir");
+        System.out.println("Path--------"+path);
+        System.setProperty("webdriver.chrome.driver",path+"/src/gecko/chromedriver");
 
 //        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("start-maximized");
-//        options.addArguments("--disable-extensions");
-//        options.addArguments("--auto-open-devtools-for-tabs");
-//        WebDriver driver = new ChromeDriver(options);
-//        driver.get("https://www.google.com/");
-//        System.out.println(driver.getTitle());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--auto-open-devtools-for-tabs");
+        WebDriver driver = new ChromeDriver(options);
+        driver.get("https://www.google.com/");
+        System.out.println(driver.getTitle());
        
     }
 
