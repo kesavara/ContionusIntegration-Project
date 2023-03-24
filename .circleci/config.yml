@@ -1,15 +1,16 @@
 version: '2.1'
 orbs:
   maven: circleci/maven@1.1
-  browser-tools: circleci/browser-tools@1.4.1
+  # browser-tools: circleci/browser-tools@1.4.1
 jobs:
   test:
     docker:
       - image: cimg/openjdk:8.0.362
+    working_directory: /home/circleci/project
     steps:
       - checkout
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
+      # - browser-tools/install-chrome
+      # - browser-tools/install-chromedriver
       - run:
           name: Download Selenium
           command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
