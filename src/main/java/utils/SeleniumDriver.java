@@ -53,21 +53,28 @@ public class SeleniumDriver {
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
 //        options.addArguments("--auto-open-devtools-for-tabs");
-        WebDriver driver = new ChromeDriver();
-
-        driver.get("https://www.google.com/");
-        System.out.println(driver.getTitle());
+//        WebDriver driver = new ChromeDriver();
+//
+//        driver.get("https://www.google.com/");
+//        System.out.println(driver.getTitle());
        
     }
 
     public static void OpenChromeDriver(){
+
+        String userDirectory = System.getProperty("user.dir");
+        System.out.println("userDirectory---------------" + userDirectory);
+        System.setProperty("webdriver.chrome.driver", userDirectory+"/src/gecko/chromedriver");
+//
 
 //        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver.exe");
 //        ChromeOptions options = new ChromeOptions();
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--auto-open-devtools-for-tabs");
-        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
+
+
+//        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("--disable-extensions");
