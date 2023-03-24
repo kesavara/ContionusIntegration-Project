@@ -9,12 +9,22 @@ jobs:
     steps:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
+      - checkout
       - run:
           command: |
             google-chrome --version
             chromedriver --version
           name: Check install
+        
+      # Use mvn clean and package as the standard maven build phase
+      - run:
+          name: Build
+          command: mvn clean package
+      # Then run your tests!
+      - run:
+          name: Test
+          command: mvn test
 workflows:
   maven_test:
     jobs:
-      - maven/test
+      - test
