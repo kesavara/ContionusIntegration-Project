@@ -39,17 +39,20 @@ public class SeleniumDriver {
 //        String window=driver.getWindowHandle();
 //        System.out.println("Window ->"+window);
 
+     //   driver = webdriver.Chrome(executable_path='C:/path/to/chromedriver.exe')
+//        String path = System.getProperty("user.dir");
+//        System.out.println("Path--------"+path);
+//        System.setProperty("webdriver.chrome.driver",path+"/src/gecko/chromedriver");
 
-        String path = System.getProperty("user.dir");
-        System.out.println("Path--------"+path);
-        System.setProperty("webdriver.chrome.driver",path+"/src/gecko/chromedriver");
+
 
 //        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--auto-open-devtools-for-tabs");
-        WebDriver driver = new ChromeDriver(options);
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("start-maximized");
+//        options.addArguments("--disable-extensions");
+//        options.addArguments("--auto-open-devtools-for-tabs");
+        WebDriver driver = new ChromeDriver();
+
         driver.get("https://www.google.com/");
         System.out.println(driver.getTitle());
        
