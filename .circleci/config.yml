@@ -20,8 +20,9 @@ jobs:
     # docker:
     #    - image: cimg/openjdk:1.14-browsers
     steps:
-      - browser-tools/install-browser-tools
       - checkout
+      - browser-tools/install-browser-tools
+      
       # - browser-tools/install-chrome
       # - browser-tools/install-chromedriver
       - run: |
@@ -40,9 +41,9 @@ jobs:
       #     name: Check install
         
       # Use mvn clean and package as the standard maven build phase
-      # - run:
-      #     name: Build
-      #     command: mvn clean package
+      - run:
+          name: Build
+          command: mvn clean package
       # Then run your tests!
       - run:
           name: Test
