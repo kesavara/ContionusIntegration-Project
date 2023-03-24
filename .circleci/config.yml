@@ -5,7 +5,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/openjdk:1.8.0_362
+      - image: cimg/openjdk:8.0.362
     steps:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
@@ -20,7 +20,7 @@ jobs:
       # - run:
       #     name: Build
       #     command: mvn clean package
-      # # Then run your tests!
+      # Then run your tests!
       - run:
           name: Test
           command: mvn test
