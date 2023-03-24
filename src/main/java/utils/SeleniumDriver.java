@@ -59,7 +59,7 @@ public class SeleniumDriver {
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--auto-open-devtools-for-tabs");
-        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "https://github.com/kesavara/ContionusIntegration-Project/blob/fe979fd21dea39a22666efc9e42b215fe07be6ad/src/gecko/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("--disable-extensions");
