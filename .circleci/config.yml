@@ -5,7 +5,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: 'cimg/node:13.12-browsers'
+      - image: cimg/openjdk:8.0.362
     steps:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
