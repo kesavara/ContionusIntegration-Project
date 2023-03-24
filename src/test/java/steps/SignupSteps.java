@@ -60,8 +60,8 @@ public class SignupSteps extends ResultsStorage {
 
 	@Given("^user is on signup page of awsconsole website \"([^\"]*)\"$")
 	public void userIsOnSignupPageOfAwsconsoleWebsite(String url) throws Throwable {
-//		SeleniumDriver.openPage(url);
-		SeleniumDriver.OpenChromeDriver();
+    	SeleniumDriver.openPage(url);
+	//	SeleniumDriver.OpenChromeDriver();
 		// Write code here that turns the phrase above into concrete actions
 //		throw new PendingException();
 	}
