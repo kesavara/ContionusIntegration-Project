@@ -46,7 +46,7 @@ public class SeleniumDriver {
 
 
 
-        System.setProperty("webdriver.chrome.driver", "/src/gecko/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("--disable-extensions");
