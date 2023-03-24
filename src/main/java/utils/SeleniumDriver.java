@@ -46,12 +46,13 @@ public class SeleniumDriver {
 
 
 
-//        System.setProperty("webdriver.chrome.driver", "src/gecko/chromedriver");
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("start-maximized");
-//        options.addArguments("--disable-extensions");
-//        options.addArguments("--auto-open-devtools-for-tabs");
-        WebDriver driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "/src/gecko/chromedriver");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
+        options.addArguments("--auto-open-devtools-for-tabs");
+        WebDriver driver = new ChromeDriver(options);
 
         driver.get("https://www.google.com/");
         System.out.println(driver.getTitle());
