@@ -1,23 +1,39 @@
 version: '2.1'
+# jobs:
+#   build:
+#     macos:
+#       xcode: 14.2.0
+
+#     steps:
+#       # Commands will execute in macOS container
+#       # with Xcode 14.2.0 installed
+#       - run: xcodebuild -version
+      
 orbs:
   maven: circleci/maven@1.1
-  # browser-tools: circleci/browser-tools@1.4.1
+  browser-tools: circleci/browser-tools@1.4.1
 jobs:
   test:
-    docker:
-      - image: cimg/openjdk:8.0.362
-    working_directory: /home/circleci/project
+    macos:
+      xcode: 14.2.0
+
+    # docker:
+    #    - image: cimg/openjdk:1.14-browsers
     steps:
+      - browser-tools/install-browser-tools
       - checkout
       # - browser-tools/install-chrome
       # - browser-tools/install-chromedriver
-      - run:
-          name: Download Selenium
-          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      - run:
-          name: Start Selenium
-          command: java -jar selenium-server-standalone-3.5.3.jar
-          background: true
+      - run: |
+          java --version
+          google-chrome --version
+      # - run:
+      #     name: Download Selenium
+      #     command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      # - run:
+      #     name: Start Selenium
+      #     command: java -jar selenium-server-standalone-3.5.3.jar
+      #     background: true
       # - run:
       #     command: |
       #       google-chrome --version
