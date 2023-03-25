@@ -26,7 +26,7 @@ jobs:
       - run: |
           java --version
           google-chrome --version
-          ls /home/circleci/.cache/selenium/chromedriver/linux64
+          ls /home/circleci/.cache/
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
