@@ -42,3 +42,5 @@ workflows:
       - build-and-test
       - maven/test:
           command: '-X verify'
+          requires: 
+          - build-and-test
