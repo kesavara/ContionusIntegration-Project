@@ -28,8 +28,8 @@ public class SeleniumDriver {
 
     private  SeleniumDriver() {
 
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
 
 //        System.setProperty("webdriver.gecko.driver",
 //                "/usr/local/bin/geckodriver");
@@ -50,18 +50,20 @@ public class SeleniumDriver {
 //        System.setProperty("webdriver.chrome.driver",path+"/src/gecko/chromedriver");
 
 
-//        String userDirectory = System.getProperty("user.dir");
-//        System.out.println("userDirectory---------------" + userDirectory);
-//        System.setProperty("webdriver.chrome.driver", userDirectory+"/src/gecko/chromedriver");
+        String userDirectory = System.getProperty("user.dir");
+        System.out.println("userDirectory---------------" + userDirectory);
+        System.setProperty("webdriver.chrome.driver", userDirectory+"/src/gecko/chromedriver");
 //        ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions().setHeadless(true);
+        WebDriver driver = new ChromeDriver(options);
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
 //        options.addArguments("--auto-open-devtools-for-tabs");
-//        WebDriver driver = new ChromeDriver();
-//
-//        driver.get("https://www.google.com/");
-//        System.out.println(driver.getTitle());
+//        WebDriver driver = new ChromeDriver(options);
+
+        driver.get("https://www.google.com/");
+        System.out.println(driver.getTitle());
        
     }
 
