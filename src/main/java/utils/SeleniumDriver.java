@@ -4,6 +4,7 @@ package utils;
 
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,6 +27,10 @@ public class SeleniumDriver {
     public final static int PAGE_LOAD_TIMEOUT = 50;
 
     private  SeleniumDriver() {
+
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+
 //        System.setProperty("webdriver.gecko.driver",
 //                "/usr/local/bin/geckodriver");
 //       // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
