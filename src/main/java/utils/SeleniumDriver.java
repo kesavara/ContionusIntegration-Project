@@ -31,18 +31,18 @@ public class SeleniumDriver {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();
 
-//        System.setProperty("webdriver.gecko.driver",
-//                "/usr/local/bin/geckodriver");
-//       // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
-//       // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
-//    	driver = new FirefoxDriver();
-//        driver.manage().window().maximize();
-//
-//        waitDriver = new WebDriverWait(driver, TIMEOUT);
-//        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
-//        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-//        String window=driver.getWindowHandle();
-//        System.out.println("Window ->"+window);
+        System.setProperty("webdriver.gecko.driver",
+                "/usr/local/bin/geckodriver");
+       // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
+       // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
+    	driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+
+        waitDriver = new WebDriverWait(driver, TIMEOUT);
+        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        String window=driver.getWindowHandle();
+        System.out.println("Window ->"+window);
 
      //   driver = webdriver.Chrome(executable_path='C:/path/to/chromedriver.exe')
 //        String path = System.getProperty("user.dir");
@@ -50,12 +50,12 @@ public class SeleniumDriver {
 //        System.setProperty("webdriver.chrome.driver",path+"/src/gecko/chromedriver");
 
 
-//        String userDirectory = System.getProperty("user.dir");
-//        System.out.println("userDirectory---------------" + userDirectory);
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-//        ChromeOptions options = new ChromeOptions();
-        ChromeOptions options = new ChromeOptions().setHeadless(true);
-        WebDriver driver = new ChromeDriver(options);
+////        String userDirectory = System.getProperty("user.dir");
+////        System.out.println("userDirectory---------------" + userDirectory);
+//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+////        ChromeOptions options = new ChromeOptions();
+//        ChromeOptions options = new ChromeOptions().setHeadless(true);
+//        WebDriver driver = new ChromeDriver(options);
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
