@@ -42,6 +42,9 @@ jobs:
         
       # Use mvn clean and package as the standard maven build phase
       - run:
+          name: Package
+          command: brew install maven
+      - run:
           name: Build
           command: mvn clean package
       # Then run your tests!
