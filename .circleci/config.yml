@@ -10,7 +10,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - browser-tools/install-browser-tools
       - restore_cache:
           key: v1-mvn-deps-{{ checksum "pom.xml" }}
       - run: mvn install -DskipTests
@@ -25,6 +24,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - browser-tools/install-browser-tools
       - run: |
           java --version
           google-chrome --version
