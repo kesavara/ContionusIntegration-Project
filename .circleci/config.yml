@@ -3,12 +3,14 @@ version: 2.1
 defaults: &defaults
     docker:
       - image: cimg/openjdk:19.0.2-browsers
-
+orbs:
+  browser-tools: circleci/browser-tools@1.4.1
 jobs:
   dependencies:
     <<: *defaults
     steps:
       - checkout
+      - browser-tools/install-browser-tools
       - restore_cache:
           key: v1-mvn-deps-{{ checksum "pom.xml" }}
       - run: mvn install -DskipTests
