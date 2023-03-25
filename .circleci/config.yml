@@ -14,19 +14,19 @@ orbs:
   # browser-tools: circleci/browser-tools@1.4.1
 jobs:
   test:
-    macos:
-      xcode: 14.2.0
+    # macos:
+    #   xcode: 14.2.0
 
-    # docker:
-    #    - image: cimg/openjdk:1.14-browsers
+    docker:
+       - image: cimg/openjdk:1.14-browsers
     steps:
       - checkout
       # - browser-tools/install-browser-tools
       
       # - browser-tools/install-chrome
       # - browser-tools/install-chromedriver
-      # - run: |
-      #     java --version
+      - run: |
+          java --version
       # - run:
       #     name: Download Selenium
       #     command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
@@ -41,9 +41,6 @@ jobs:
       #     name: Check install
         
       # Use mvn clean and package as the standard maven build phase
-      - run:
-          name: Package
-          command: brew install maven
       - run:
           name: Build
           command: mvn clean package
