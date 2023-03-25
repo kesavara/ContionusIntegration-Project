@@ -1,45 +1,21 @@
-version: '2.1'
-# jobs:
-#   build:
-#     macos:
-#       xcode: 14.2.0
+version: 2.1
 
-#     steps:
-#       # Commands will execute in macOS container
-#       # with Xcode 14.2.0 installed
-#       - run: xcodebuild -version
-      
-orbs:
-  maven: circleci/maven@1.1
-  # browser-tools: circleci/browser-tools@1.4.1
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  test:
-    # macos:
-    #   xcode: 14.2.0
-
+  # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
+  build-and-test:
+    # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
+    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # Be sure to update the Docker image tag below to openjdk version of your application.
+    # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/openjdk
     docker:
-       - image: cimg/openjdk:1.14-browsers
+      - image: cimg/openjdk:8.0.362
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
+      # Checkout the code as the first step.
       - checkout
-      # - browser-tools/install-browser-tools
-      
-      # - browser-tools/install-chrome
-      # - browser-tools/install-chromedriver
-      - run: |
-          java --version
-      # - run:
-      #     name: Download Selenium
-      #     command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      # - run:
-      #     name: Start Selenium
-      #     command: java -jar selenium-server-standalone-3.5.3.jar
-      #     background: true
-      # - run:
-      #     command: |
-      #       google-chrome --version
-      #       chromedriver --version
-      #     name: Check install
-        
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
@@ -48,7 +24,11 @@ jobs:
       - run:
           name: Test
           command: mvn test
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  maven_test:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - test
+      - build-and-test
