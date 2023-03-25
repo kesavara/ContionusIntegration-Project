@@ -17,7 +17,6 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       # Checkout the code as the first step.
-      - browser-tools/install-browser-tools
       - checkout
       # Use mvn clean and package as the standard maven build phase
       # - run:
@@ -34,12 +33,12 @@ jobs:
       - run: |
           java --version
           google-chrome --version
-          mvn --version
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   maven_test:
     jobs:
+      - build-and-test
       - maven/test:
           command: '-X verify'
