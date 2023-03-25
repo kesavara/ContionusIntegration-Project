@@ -1,54 +1,36 @@
-version: '2.1'
-# jobs:
-#   build:
-#     macos:
-#       xcode: 14.2.0
+version: 2.1
 
-#     steps:
-#       # Commands will execute in macOS container
-#       # with Xcode 14.2.0 installed
-#       - run: xcodebuild -version
-      
-orbs:
-  maven: circleci/maven@1.1
-  browser-tools: circleci/browser-tools@1.4.1
+defaults: &defaults
+    docker:
+      - image: cimg/openjdk:19.0.2-browsers
+    working_directory: ~/project
+
 jobs:
-  test:
-    macos:
-      xcode: 14.2.0
-
-    # docker:
-    #    - image: cimg/openjdk:1.14-browsers
+  dependencies:
+    <<: *defaults
     steps:
       - checkout
-      - browser-tools/install-browser-tools
-      
-      # - browser-tools/install-chrome
-      # - browser-tools/install-chromedriver
-      - run: |
-          java --version
-      # - run:
-      #     name: Download Selenium
-      #     command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      # - run:
-      #     name: Start Selenium
-      #     command: java -jar selenium-server-standalone-3.5.3.jar
-      #     background: true
-      # - run:
-      #     command: |
-      #       google-chrome --version
-      #       chromedriver --version
-      #     name: Check install
-        
-      # Use mvn clean and package as the standard maven build phase
-      - run:
-          name: Build
-          command: mvn clean package
-      # Then run your tests!
-      - run:
-          name: Test
-          command: mvn test
+      - restore_cache:
+          key: v1-mvn-deps-{{ checksum "pom.xml" }}
+      - run: mvn install -DskipTests
+      - save_cache:
+          key: v1-mvn-deps-{{ checksum "pom.xml" }}
+          paths:
+            - ~/.m2
+  tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-mvn-deps-{{ checksum "pom.xml" }}
+      - run: sleep 5 # sleep to allow the server some time to boot
+      - run: mvn test
+
 workflows:
-  maven_test:
+  version: 2
+  build:
     jobs:
-      - test
+      - dependencies
+      - tests:
+          requires:
+            - dependencies
