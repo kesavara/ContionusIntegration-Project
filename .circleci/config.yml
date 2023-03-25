@@ -2,6 +2,7 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+working_directory: ~/
 orbs:
   maven: circleci/maven@1.4.1
 jobs:
@@ -18,6 +19,11 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+      # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       # Use mvn clean and package as the standard maven build phase
       # - run:
       #     name: Build
@@ -26,7 +32,8 @@ jobs:
       - run: |
           java --version
           google-chrome --version
-          ls /home/circleci/.cache/
+          cd ~
+          ls
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
