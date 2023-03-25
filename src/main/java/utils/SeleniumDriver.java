@@ -52,7 +52,7 @@ public class SeleniumDriver {
 
         String userDirectory = System.getProperty("user.dir");
         System.out.println("userDirectory---------------" + userDirectory);
-        System.setProperty("webdriver.chrome.driver", userDirectory+"/src/gecko/chromedriver");
+        //System.setProperty("webdriver.chrome.driver", userDirectory+"/src/gecko/chromedriver");
 //        ChromeOptions options = new ChromeOptions();
         ChromeOptions options = new ChromeOptions().setHeadless(true);
         WebDriver driver = new ChromeDriver(options);
