@@ -24,23 +24,15 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: |
-          java --version
-          google-chrome --version
-          ls /usr/local/bin
-          rm -rf /usr/local/bin/chromedriver
-      - browser-tools/install-browser-tools
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run:
-          name: Install Chrome
           command: |
-            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get install google-chrome-stable
-      - run: |
-          java --version
-          google-chrome --version
-          ls /usr/local/bin
+            google-chrome --version
+            firefox --version
+            chromedriver --version
+            java -jar /usr/local/bin/selenium.jar --version
+          name: Check install
       - restore_cache:
           key: v1-mvn-deps-{{ checksum "pom.xml" }}
       - run: sleep 5 # sleep to allow the server some time to boot
