@@ -53,9 +53,11 @@ public class SeleniumDriver {
 ////        String userDirectory = System.getProperty("user.dir");
 ////        System.out.println("userDirectory---------------" + userDirectory);
        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.whitelistedIps", "");
 //        ChromeOptions options = new ChromeOptions();
       ChromeOptions options = new ChromeOptions().setHeadless(true);
       WebDriver driver = new ChromeDriver(options);
+
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
