@@ -31,11 +31,11 @@ public class SeleniumDriver {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();
 
-        System.setProperty("webdriver.gecko.driver",
-                "/usr/local/bin/geckodriver");
+        //System.setProperty("webdriver.gecko.driver",
+               // "/usr/local/bin/geckodriver");
        // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
        // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
-    	driver = new FirefoxDriver();
+    	//driver = new FirefoxDriver();
 //        driver.manage().window().maximize();
 //
 //        waitDriver = new WebDriverWait(driver, TIMEOUT);
@@ -52,10 +52,10 @@ public class SeleniumDriver {
 
 ////        String userDirectory = System.getProperty("user.dir");
 ////        System.out.println("userDirectory---------------" + userDirectory);
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-////        ChromeOptions options = new ChromeOptions();
-//        ChromeOptions options = new ChromeOptions().setHeadless(true);
-//        WebDriver driver = new ChromeDriver(options);
+       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        ChromeOptions options = new ChromeOptions();
+      ChromeOptions options = new ChromeOptions().setHeadless(true);
+      WebDriver driver = new ChromeDriver(options);
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
 //        options.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
