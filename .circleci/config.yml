@@ -2,7 +2,7 @@ version: 2.1
 
 defaults: &defaults
     docker:
-      - image: cimg/openjdk:19.0.2-browsers
+      - image: cimg/openjdk:8.0-browsers
 orbs:
   browser-tools: circleci/browser-tools@1.4.1
 jobs:
@@ -18,7 +18,7 @@ jobs:
           paths:
             - ~/.m2
       - run: |
-          java --version
+          java -version
           google-chrome --version
   tests:
     <<: *defaults
