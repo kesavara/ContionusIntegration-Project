@@ -57,7 +57,7 @@ public class SeleniumDriver {
         System.setProperty("webdriver.chrome.whitelistedIps", "");
 //        ChromeOptions options = new ChromeOptions();
       ChromeOptions options = new ChromeOptions().setHeadless(true);
-      WebDriver driver = new ChromeDriver(options);
+       driver = new ChromeDriver(options);
 
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
