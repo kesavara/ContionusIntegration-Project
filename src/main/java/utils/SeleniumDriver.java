@@ -148,12 +148,13 @@ public class SeleniumDriver {
     }
 
     public static void tearDown() {
-        //if (driver != null) {
-            //driver.close();
+        if (driver != null) {
+            driver.close();
             System.out.println("Closing the browser. reached tearDown");
             driver.quit();
-      //  }
-       // seleniumDriver = null;
+        }
+        seleniumDriver = null;
+        System.out.println("Test completed");
     }
     public static void waitForPageToLoad()
     {
