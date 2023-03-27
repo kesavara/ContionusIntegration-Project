@@ -17,6 +17,9 @@ jobs:
           key: v1-mvn-deps-{{ checksum "pom.xml" }}
           paths:
             - ~/.m2
+      - run: |
+          java -version
+          google-chrome --version
   tests:
     <<: *defaults
     steps:
