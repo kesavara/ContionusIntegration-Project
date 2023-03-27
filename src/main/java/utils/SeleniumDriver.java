@@ -2,6 +2,7 @@ package utils;
 
 
 
+import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -147,11 +148,12 @@ public class SeleniumDriver {
     }
 
     public static void tearDown() {
-        if (driver != null) {
+        //if (driver != null) {
             //driver.close();
+            System.out.println("Closing the browser. reached tearDown");
             driver.quit();
-        }
-        seleniumDriver = null;
+      //  }
+       // seleniumDriver = null;
     }
     public static void waitForPageToLoad()
     {

@@ -7,7 +7,7 @@ Feature: Automatic creation of test accounts on prod.
     #Step1
    Given user is on signup page of awsconsole website "<url>"
 #    Given Open browser
-    Given user opens the chrome dev tool
+#    Given user opens the chrome dev tool
 #    Given user enters root user email adress "<address>" and aws account name "<name>"
 #    When user clicks on verify email address
 #    Then user enter the verification code received in the users mailbox "<folder>" and click on verify
