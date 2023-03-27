@@ -2,7 +2,7 @@ version: 2.1
 
 defaults: &defaults
     docker:
-      - image: cimg/openjdk:8.0.362-browsers
+      - image: cimg/openjdk:8.0-browsers
 orbs:
   browser-tools: circleci/browser-tools@1.4.1
 jobs:
