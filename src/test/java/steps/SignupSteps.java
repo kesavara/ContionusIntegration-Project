@@ -14,6 +14,7 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.WebElement;
 import pages.ResultsStorage.ResultsStorage;
 import pages.actions.HomePageActions;
+import pages.actions.awsManagement;
 import utils.SeleniumDriver;
 
 import java.io.File;
@@ -50,20 +51,22 @@ public class SignupSteps extends ResultsStorage {
 	    SeleniumDriver.openPage(webSiteURL);
 	    
 	}
-	@Given("^user is on signup page of aws-console website \"([^\"]*)\"$")
-	public void user_is_on_signup_page_of_awsconsole_website(String arg0) throws Throwable {
-		SeleniumDriver.openPage(arg0);
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
-	}
 
 
+//	@Given("^user is on signup page of awsconsole website \"([^\"]*)\"$")
+//	public void userIsOnSignupPageOfAwsconsoleWebsite(String url) throws Throwable {
+//    	SeleniumDriver.openPage(url);
+//		awsManagement.billingConsole();
+////		SeleniumDriver.OpenChromeDriver();
+//		// Write code here that turns the phrase above into concrete actions
+////		throw new PendingException();
+//	}
 	@Given("^user is on signup page of awsconsole website \"([^\"]*)\"$")
-	public void userIsOnSignupPageOfAwsconsoleWebsite(String url) throws Throwable {
-    	SeleniumDriver.openPage(url);
-//		SeleniumDriver.OpenChromeDriver();
+	public void user_is_on_signup_page_of_awsconsole_website(String url) throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-//		throw new PendingException();
+		SeleniumDriver.openPage(url);
+
+//		awsManagement.billingConsole();
 	}
 
 

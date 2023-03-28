@@ -32,12 +32,12 @@ public class SeleniumDriver {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();
 
-        //System.setProperty("webdriver.gecko.driver",
-               // "/usr/local/bin/geckodriver");
+//        System.setProperty("webdriver.gecko.driver",
+//                "src/gecko/geckodriver");
        // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
        // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
-    	//driver = new FirefoxDriver();
-//        driver.manage().window().maximize();
+    	driver = new FirefoxDriver();
+        driver.manage().window().maximize();
 //
 //        waitDriver = new WebDriverWait(driver, TIMEOUT);
 //        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
@@ -53,11 +53,12 @@ public class SeleniumDriver {
 
 ////        String userDirectory = System.getProperty("user.dir");
 ////        System.out.println("userDirectory---------------" + userDirectory);
-       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        System.setProperty("webdriver.chrome.whitelistedIps", "");
+//       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.whitelistedIps", "");
 //        ChromeOptions options = new ChromeOptions();
-      ChromeOptions options = new ChromeOptions().setHeadless(true);
-       driver = new ChromeDriver(options);
+//      ChromeOptions options = new ChromeOptions().setHeadless(true);
+//        ChromeOptions options = new ChromeOptions();
+//       driver = new ChromeDriver(options);
 
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
@@ -99,6 +100,25 @@ public class SeleniumDriver {
     	System.out.println(url);
     	System.out.println(driver);
         driver.get(url);
+//        driver.findElement(By.cssSelector(".lb-none-v-margin > .lb-btn-p-primary > span")).click();
+        driver.findElement(By.id("resolving_input")).sendKeys("awscp-e2e-testteam+estoniasor_prod2@amazon.com");
+        driver.findElement(By.id("next_button")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.id("password")).sendKeys("Trailblazers@123");
+        Thread.sleep(1000);
+        driver.findElement(By.id("signin_button")).click();
+        Thread.sleep(10000);
+        driver.findElement(By.xpath("//li[3]/div/button/span[2]")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.linkText("Billing Dashboard")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//a[normalize-space()='Bills']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.cssSelector("button[data-testid='download-csv-button']")).isDisplayed();
+        Thread.sleep(1000);
+        System.out.println("Verified XPath");
+
+
 
 //        driver.findElement(By.id("awsui-input-0")).sendKeys("awscp-e2e-testteam+testhack2@amazon.com");
 //        driver.findElement(By.id("awsui-input-1")).sendKeys("test user 1");
@@ -151,7 +171,7 @@ public class SeleniumDriver {
         if (driver != null) {
             driver.close();
             System.out.println("Closing the browser. reached tearDown");
-            driver.quit();
+//            driver.quit();
         }
         seleniumDriver = null;
         System.out.println("Test completed");

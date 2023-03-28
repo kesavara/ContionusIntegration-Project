@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -62,7 +64,9 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 public class BillInfoPageSteps {
+    String username = "hackathontest1@outlook.com";//username
 
+    String password = "amazon@1234";
     public String getOtp ="";
     public String ACCOUNT_SID = "ACc33a8620818a8384c8d0591c88ec60dd";
     public String AUTH_TOKEN = "f426b7690057b06daeea9a28d3388bed";
@@ -259,95 +263,167 @@ public class BillInfoPageSteps {
         Transport.send(msg);
 
     }
+    public Properties mailProperties() {
+        Properties props = new Properties();
+        props.setProperty("mail.store.protocol", "imaps");
+//        props.setProperty("mail.transport.protocol", "smtp");
+
+        props.setProperty("mail.smtp.host", "outlook.office365.com");
+        props.setProperty("mail.smtp.port", "143");
+        props.setProperty("mail.smtp.user", "hackathontest1@outlook.com");
+        props.setProperty("mail.smtp.password", "amazon@1234");
+        props.setProperty("mail.smtp.starttls.enable", "true");
+        props.setProperty("mail.smtp.auth", "true");
+
+        return props;
+    }
+
+    public String sendMail(String from, String to, String subject, String msgBody) {
+        Properties props = mailProperties();
+        Session mailSession = Session.getInstance(props, new javax.mail.Authenticator(){
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(
+                        "hackathontest1@outlook.com", "amazon@1234");// Specify the Username and the PassWord
+            }
+        });
+
+        mailSession.setDebug(false);
+
+        try {
+            Transport transport = mailSession.getTransport();
+
+            MimeMessage message = new MimeMessage(mailSession);
+            message.setSubject(subject);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipients(Message.RecipientType.TO, to);
+
+            MimeMultipart multipart = new MimeMultipart();
+
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            String filename = "/home/circleci/project/target/positive/cucumber.html/index.html";
+
+            messageBodyPart.setContent(msgBody, "filename");
+
+            multipart.addBodyPart(messageBodyPart);
+            message.setContent(multipart);
+
+            transport.connect();
+            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            transport.close();
+            return "SUCCESS";
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return "INVALID_EMAIL";
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return "ERROR";
+    }
+
 
 
 
     @Then("^user enter the verification code received in the users mailbox \"([^\"]*)\" and click on verify$")
-    public void userEnterTheVerificationCodeReceivedInTheUsersMailboxAndClickOnVerify(String folderName)  {
-//String mailFolderName1, String emailSubjectContent1, String emailContent1, int lengthOfOTP1
-        String mailFolderName =folderName;
-        String emailSubjectContent ="AWS Email Verification";
-        String emailContent="Verification code";
-        int lengthOfOTP=6;
-
-//mailFolderName(Eg- "INBOX"), emailSubjectContent(Eg- Mail for OTP),
-//        emailContent(Eg- OTP is 111111), OTP length(Eg- 6)
-        String hostName = "outlook.office365.com";//"smtp.office365.com";//change it according to your mail
-
-        String username = "hackathontest1@outlook.com";//username
-
-        String password = "amazon@123";
-
-        int messageCount;
-
-        int unreadMsgCount;
-
-        String emailSubject;
-
-        Message emailMessage;
-
-        String searchText=null ;
-        String readOTP = "";
-
-        Properties sysProps = System.getProperties();
-
-        sysProps.setProperty("mail.store.protocol", "imaps");
-
-        try {
-
-            Session session = Session.getInstance(sysProps, null);
-
-            Store store = session.getStore();
-
-            store.connect(hostName, username, password);
-
-            Folder emailBox = store.getFolder(mailFolderName);
-
-            emailBox.open(Folder.READ_WRITE);
+    public void userEnterTheVerificationCodeReceivedInTheUsersMailboxAndClickOnVerify(String folderName) {
+    test.sendMail();
+        ////        sendMail(username, username, "mailtest", "msgBody");
 //
-            javax.mail.Message[] msg = emailBox.getMessages();
-
-            //
-            messageCount = emailBox.getMessageCount();
-
-            System.out.println("Total Message Count: " + messageCount);
-
-            unreadMsgCount = emailBox.getNewMessageCount();
-
-            System.out.println("Unread Emails count:" + unreadMsgCount);
-
-            for(int i=messageCount; i>(messageCount-unreadMsgCount); i--){
-            //
-
-            //for (int i = 0; i < msg.length; i++) {
-                System.out.println("------------ Message " + (i + 1) + " ------------");
-//                String from = InternetAddress.toString(msg[i].getFrom());
-//                if (from != null) {
-//                    System.out.println("From: " + from);
-//                }
-
-                Multipart multipart = (Multipart) msg[i-1].getContent();
-
-                for (int x = 0; x < multipart.getCount(); x++) {
-                    BodyPart bodyPart = multipart.getBodyPart(x);
-
-                    String disposition = bodyPart.getDisposition();
-
-                    if (disposition != null && (disposition.equals(BodyPart.ATTACHMENT))) {
-                        System.out.println("Mail have some attachment : ");
-
-                        DataHandler handler = bodyPart.getDataHandler();
-                        System.out.println("file name : " + handler.getName());
-                    } else {
-                        readOTP = bodyPart.getContent().toString().split(System.lineSeparator())[5].substring(0,6);
-                        System.out.println("____***********_____OTP IS __******"+readOTP);
-                        System.out.println("***********get content is ********"+bodyPart.getContent());
-                        getOtp = readOTP;
-                        billingInformationPageActions.enterVerificationCode(getOtp);
-                        billingInformationPageActions.clickOnVerify();
-                    }
-
+//
+//
+//
+//        //String mailFolderName1, String emailSubjectContent1, String emailContent1, int lengthOfOTP1
+//        String mailFolderName = folderName;
+//        String emailSubjectContent = "AWS Email Verification";
+//        String emailContent = "Verification code";
+//        int lengthOfOTP = 6;
+//
+////mailFolderName(Eg- "INBOX"), emailSubjectContent(Eg- Mail for OTP),
+////        emailContent(Eg- OTP is 111111), OTP length(Eg- 6)
+//        String hostName = "outlook.office365.com";//"smtp.office365.com";//change it according to your mail
+//
+//        String username = "hackathontest1@outlook.com";//username
+//
+//        String password = "amazon@1234";
+//
+//        int messageCount;
+//
+//        int unreadMsgCount;
+//
+//        String emailSubject;
+//
+//        Message emailMessage;
+//
+//        String searchText = null;
+//        String readOTP = "";
+//
+////        Properties sysProps = System.getProperties();
 ////
+////        sysProps.setProperty("mail.store.protocol", "imaps");
+//
+//
+//        Properties props = new Properties();
+//        props.put("mail.store.protocol", "imaps");
+////        props.put("mail.smtp.auth", "true");
+////        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.host", hostName);
+////        props.put("mail.smtp.port", 25);
+//        props.put("mail.smtp.password",password);
+//        props.put("mail.smtp.ssl.trust", "smtp.office365.com");
+//        props.setProperty("mail.smtp.user", username);
+//
+//
+//        try {
+//
+//            Session session = Session.getInstance(props, null);
+//
+//            Store store = session.getStore();
+//
+//            store.connect(hostName, username, password);
+//
+//            try {
+//                // Create a default MimeMessage object.
+//                Message message = new MimeMessage(session);
+//                // Set From: header field of the header.
+//                message.setFrom(new InternetAddress(username));
+//                // Set To: header field of the header.
+//                message.setRecipients(Message.RecipientType.TO,
+//                        InternetAddress.parse(username));
+//                // Set Subject: header field
+//                message.setSubject("Attachment");
+//                // Create the message part
+//                BodyPart messageBodyPart = new MimeBodyPart();
+//                // Now set the actual message
+//                messageBodyPart.setText("Please find the attachment below");
+//
+//
+//                // Create a multipar message
+//                Multipart multipart = new MimeMultipart();
+//                // Set text message part
+//                multipart.addBodyPart(messageBodyPart);
+//                // Part two is attachment
+//                messageBodyPart = new MimeBodyPart();
+//                String filename = "/Users/kragi/Documents/office/AWS/hackathon22/hackathon-23/ContionusIntegration-Project/target/positive/cucumber.html/index.html";
+//                DataSource source = new FileDataSource(filename);
+//                messageBodyPart.setDataHandler(new DataHandler(source));
+//                messageBodyPart.setFileName(filename);
+//                multipart.addBodyPart(messageBodyPart);
+//                // Send the complete message parts
+//                message.setContent(multipart);
+//                // Send message
+//                Transport.send(message);
+//                System.out.println("Email Sent Successfully !!");
+//            } catch (MessagingException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//
+//            Folder emailBox = store.getFolder(mailFolderName);
+//
+//            emailBox.open(Folder.READ_WRITE);
+////
+//            javax.mail.Message[] msg = emailBox.getMessages();
+//
+//            //
 //            messageCount = emailBox.getMessageCount();
 //
 //            System.out.println("Total Message Count: " + messageCount);
@@ -356,69 +432,114 @@ public class BillInfoPageSteps {
 //
 //            System.out.println("Unread Emails count:" + unreadMsgCount);
 //
-//            for(int i=messageCount; i>(messageCount-unreadMsgCount); i--)
+//            for(int i=messageCount; i>(messageCount-unreadMsgCount); i--){
+//            //
 //
-//            {
+//            //for (int i = 0; i < msg.length; i++) {
+//                System.out.println("------------ Message " + (i + 1) + " ------------");
+////                String from = InternetAddress.toString(msg[i].getFrom());
+////                if (from != null) {
+////                    System.out.println("From: " + from);
+////                }
 //
-//                emailMessage = emailBox.getMessage(i);
+//                Multipart multipart = (Multipart) msg[i-1].getContent();
 //
-//                emailSubject = emailMessage.getSubject();
-//                //commenting n trying in 195
-//               // System.out.println("Email Subject is :"+emailMessage.getContent());
-//                System.out.println("Email Subject is :"+emailMessage.getDescription());
+//                for (int x = 0; x < multipart.getCount(); x++) {
+//                    BodyPart bodyPart = multipart.getBodyPart(x);
 //
-//                if(emailSubject.contains(emailSubjectContent))
+//                    String disposition = bodyPart.getDisposition();
 //
-//                {
+//                    if (disposition != null && (disposition.equals(BodyPart.ATTACHMENT))) {
+//                        System.out.println("Mail have some attachment : ");
 //
-//                    System.out.println("OTP mail found");
-//
-//                    String line;
-//
-//                    StringBuffer buffer = new StringBuffer();
-//
-////                    BufferedReader reader = new BufferedReader(new InputStreamReader(emailMessage.getInputStream()));
-//                    BufferedReader reader = new BufferedReader(new InputStreamReader(emailMessage.getInputStream()));
-//
-//                    while ((line = reader.readLine()) != null) {
-//
-//                        buffer.append(line);
-//
+//                        DataHandler handler = bodyPart.getDataHandler();
+//                        System.out.println("file name : " + handler.getName());
+//                    } else {
+//                        readOTP = bodyPart.getContent().toString().split(System.lineSeparator())[5].substring(0,6);
+//                        System.out.println("____***********_____OTP IS __******"+readOTP);
+//                        System.out.println("***********get content is ********"+bodyPart.getContent());
+//                        getOtp = readOTP;
+//                        billingInformationPageActions.enterVerificationCode(getOtp);
+//                        billingInformationPageActions.clickOnVerify();
 //                    }
 //
-//                    String messageContent=emailContent;
+//////
+////            messageCount = emailBox.getMessageCount();
+////
+////            System.out.println("Total Message Count: " + messageCount);
+////
+////            unreadMsgCount = emailBox.getNewMessageCount();
+////
+////            System.out.println("Unread Emails count:" + unreadMsgCount);
+////
+////            for(int i=messageCount; i>(messageCount-unreadMsgCount); i--)
+////
+////            {
+////
+////                emailMessage = emailBox.getMessage(i);
+////
+////                emailSubject = emailMessage.getSubject();
+////                //commenting n trying in 195
+////               // System.out.println("Email Subject is :"+emailMessage.getContent());
+////                System.out.println("Email Subject is :"+emailMessage.getDescription());
+////
+////                if(emailSubject.contains(emailSubjectContent))
+////
+////                {
+////
+////                    System.out.println("OTP mail found");
+////
+////                    String line;
+////
+////                    StringBuffer buffer = new StringBuffer();
+////
+//////                    BufferedReader reader = new BufferedReader(new InputStreamReader(emailMessage.getInputStream()));
+////                    BufferedReader reader = new BufferedReader(new InputStreamReader(emailMessage.getInputStream()));
+////
+////                    while ((line = reader.readLine()) != null) {
+////
+////                        buffer.append(line);
+////
+////                    }
+////
+////                    String messageContent=emailContent;
+////
+////                    String result = buffer.toString().substring(buffer.toString().indexOf(messageContent));
+////
+////                    searchText = result.substring(messageContent.length(), messageContent.length()+lengthOfOTP);
+////
+////                    System.out.println("Text found : "+ searchText);
+////
+////                    emailMessage.setFlag(Flags.Flag.SEEN, true);
+////
+////                    break;
+////
+////                }
+////
+////                emailMessage.setFlag(Flags.Flag.SEEN, true);
+////
+////            }true
 //
-//                    String result = buffer.toString().substring(buffer.toString().indexOf(messageContent));
+//                    emailBox.close(true);
 //
-//                    searchText = result.substring(messageContent.length(), messageContent.length()+lengthOfOTP);
+//                    store.close();
 //
-//                    System.out.println("Text found : "+ searchText);
-//
-//                    emailMessage.setFlag(Flags.Flag.SEEN, true);
-//
-//                    break;
 //
 //                }
+//            }
+//        }catch (Exception mex) {
 //
-//                emailMessage.setFlag(Flags.Flag.SEEN, true);
+//            mex.printStackTrace();
 //
-//            }true
-
-                    emailBox.close(true);
-
-                    store.close();
-
-
-                }
-            }
-        }catch (Exception mex) {
-
-            mex.printStackTrace();
-
-            System.out.println("OTP Not found ");
-
-        }
+//            System.out.println("OTP Not found ");
+//
+//        } catch (NoSuchProviderException e) {
+//            throw new RuntimeException(e);
+//        } catch (MessagingException e) {
+//            throw new RuntimeException(e);
+//        }
     }
+
 
 
     @And("^user select the existing address$")

@@ -10,7 +10,7 @@ Feature: Automatic creation of test accounts on prod.
 #    Given user opens the chrome dev tool
 #    Given user enters root user email adress "<address>" and aws account name "<name>"
 #    When user clicks on verify email address
-#    Then user enter the verification code received in the users mailbox "<folder>" and click on verify
+    Then user enter the verification code received in the users mailbox "<folder>" and click on verify
 #    And on successful verification user enters root user password "<encrypt>"
 #    And user enters reenter the password to confirm "<encrypt>"
 #    Then user click on continue
@@ -45,4 +45,4 @@ Feature: Automatic creation of test accounts on prod.
 
     Examples:
       | url                                                       | address        | name         | encrypt    | Country | FullName | OrgName | ContactNumber | Address           | City    | State     | Pincode | creditcardNumber | month | year | cardHolderName | cvvNumber | code | folder | mobileNumber |
-      | https://www.amazon.in/ | hackathontest1 | test account | amazon@123 | India   | testUser | amazon  | +919790946197 | 01 amazon chennai | Chennai | TamilNadu | 600001  | 4160211517807021 | 12    | 23   | kesavarao      | 280       | 000  | INBOX  | 9790946197   |
+      | https://console.aws.amazon.com/console/home | hackathontest1 | test account | amazon@123 | India   | testUser | amazon  | +919790946197 | 01 amazon chennai | Chennai | TamilNadu | 600001  | 4160211517807021 | 12    | 23   | kesavarao      | 280       | 000  | INBOX  | 9790946197   |

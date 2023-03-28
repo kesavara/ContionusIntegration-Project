@@ -25,10 +25,10 @@ public class PositiveTest  extends AbstractTestNGCucumberTests  {
 	@BeforeClass
     public static void setup() {
         // Initiates the extent report and generates the output in the output/Run_<unique timestamp>/report.html file by default.
-		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_hhmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
 		Date curDate = new Date();
 		String strDate = sdf.format(curDate);
-		String fileName = System.getProperty("user.dir")+"\\target\\Extent_Reports\\" + strDate+".html";
+		String fileName = System.getProperty("user.dir")+"/target/Extent_Reports/" + strDate+".html";
 		File newFile = new File(fileName);
 		ExtentCucumberFormatter.initiateExtentCucumberFormatter(newFile,false);
 		//static report name
