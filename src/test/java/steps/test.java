@@ -66,9 +66,9 @@ public class test {
             SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
             Date curDate = new Date();
             String strDate = sdf.format(curDate);
-            String filename = System.getProperty("user.dir")+"/target/Extent_Reports/" + strDate+".html";
-            //
-           // String filename = "/Users/kragi/Documents/office/AWS/hackathon22/hackathon-23/ContionusIntegration-Project/target/positive/cucumber.html/index.html";
+           // String filename = System.getProperty("user.dir")+"/target/Extent_Reports/" + strDate+".html";
+            String filename = "/home/circleci/project/target/Extent_Reports/" + strDate+".html";
+            // String filename = "/Users/kragi/Documents/office/AWS/hackathon22/hackathon-23/ContionusIntegration-Project/target/positive/cucumber.html/index.html";
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(filename);
