@@ -36,8 +36,8 @@ public class SeleniumDriver {
 //                "src/gecko/geckodriver");
        // System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/gecko/geckodriver");
        // System.setProperty("webdriver.gecko.driver", "\\Users\kragi\Documents\pers\learn\my-project\Selenium\");
-    	driver = new FirefoxDriver();
-        driver.manage().window().maximize();
+//    	driver = new FirefoxDriver();
+//        driver.manage().window().maximize();
 //
 //        waitDriver = new WebDriverWait(driver, TIMEOUT);
 //        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
@@ -53,12 +53,12 @@ public class SeleniumDriver {
 
 ////        String userDirectory = System.getProperty("user.dir");
 ////        System.out.println("userDirectory---------------" + userDirectory);
-//       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-//        System.setProperty("webdriver.chrome.whitelistedIps", "");
+       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.whitelistedIps", "");
 //        ChromeOptions options = new ChromeOptions();
-//      ChromeOptions options = new ChromeOptions().setHeadless(true);
+      ChromeOptions options = new ChromeOptions().setHeadless(true);
 //        ChromeOptions options = new ChromeOptions();
-//       driver = new ChromeDriver(options);
+       driver = new ChromeDriver(options);
 
 //        options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
@@ -66,8 +66,8 @@ public class SeleniumDriver {
 //        options.addArguments("--auto-open-devtools-for-tabs");
 //        WebDriver driver = new ChromeDriver(options);
 
-        driver.get("https://www.google.com/");
-        System.out.println(driver.getTitle());
+//        driver.get("https://www.google.com/");
+//        System.out.println(driver.getTitle());
        
     }
 
