@@ -36,7 +36,14 @@ jobs:
       - restore_cache:
           key: v1-mvn-deps-{{ checksum "pom.xml" }}
       - run: sleep 5 # sleep to allow the server some time to boot
+      - run:
+          command: |
+            pwd
+            ls -lf
+            cd /home/circleci/project/target
+            ls -lf
       - run: mvn test
+    
 
 workflows:
   version: 2
