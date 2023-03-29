@@ -40,7 +40,7 @@ jobs:
       - run:
           command: |
             cd /home/circleci/project/target
-            ls
+            ls -lf
 
 workflows:
   version: 2
