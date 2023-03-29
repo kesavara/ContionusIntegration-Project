@@ -39,6 +39,8 @@ jobs:
       - run: mvn test
       - run:
           command: |
+            pwd
+            ls -lf
             cd /home/circleci/project/target
             ls -lf
 
