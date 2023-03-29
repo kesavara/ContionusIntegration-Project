@@ -1,8 +1,7 @@
 package steps;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -24,6 +23,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import com.twilio.rest.verify.v2.service.VerificationCheck;
+import cucumber.api.DataTable;
 import cucumber.api.java.eo.Se;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -321,6 +321,10 @@ public class BillInfoPageSteps {
     }
 
 
+    @Then("^Email notification is sent with the test result attached to the mailbox$")
+    public void email_notification_is_sent_with_the_test_result_attached_to_the_mailbox() throws Throwable {
+        test.sendMail();
+    }
 
 
     @Then("^user enter the verification code received in the users mailbox \"([^\"]*)\" and click on verify$")
@@ -657,6 +661,33 @@ public class BillInfoPageSteps {
         Thread.sleep(10000);
     }
 
+//    @Then("^user verifies the list of locators are valid$")
+//    public void user_verifies_the_list_of_locators_are_valid(DataTable arg1) throws Throwable {
+//        // Write code here that turns the phrase above into concrete actions
+//        // For automatic transformation, change DataTable to one of
+//        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
+//        // E,K,V must be a scalar (String, Integer, Date, enum etc)
+//        //throw new PendingException();
+//
+//        List<String> rows = arg1.asList(String.class);
+//        for(String locator:rows){
+//           SeleniumDriver.getDriver().findElement(By.xpath(locator)).isDisplayed();
+//        }
+//    }
+//    @Then("^validate if the locators used in the automation script are valid$")
+//    public void validate_if_the_locators_used_in_the_automation_script_are_valid(DataTable arg1) throws Throwable {
+//        List<String> rows = arg1.asList(String.class);
+//        for(String locator:rows){
+//            SeleniumDriver.getDriver().findElement(By.xpath(locator)).isDisplayed();
+//        }
+//    }
+    @Then("^validate if the locators used in the automation script are valid$")
+    public void validate_if_the_locators_used_in_the_automation_script_are_valid(DataTable arg1) throws Throwable {
+        List<String> rows = arg1.asList(String.class);
+        for(String locator:rows){
+            SeleniumDriver.getDriver().findElement(By.xpath(locator)).isDisplayed();
+        }
+    }
 
 
     /**
