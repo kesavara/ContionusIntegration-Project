@@ -16,9 +16,9 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(
         plugin = {"json:target/positive/cucumber.json", "pretty", "html:target/positive/cucumber.html","com.cucumber.listener.ExtentCucumberFormatter"},
-        features = "src/test/resources/FeatureFiles/OpenChromedevtool.feature",
+        features = "src/test/resources/FeatureFiles/VerifyUIScriptsLocator.feature",
         glue = "steps",
-        tags = {"@AccountCreation"}
+        tags = {"@VerifyingUIScriptLocators"}
         )
 
 public class PositiveTest  extends AbstractTestNGCucumberTests  {
