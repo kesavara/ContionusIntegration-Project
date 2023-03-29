@@ -37,6 +37,10 @@ jobs:
           key: v1-mvn-deps-{{ checksum "pom.xml" }}
       - run: sleep 5 # sleep to allow the server some time to boot
       - run: mvn test
+      - run:
+          command: |
+            cd /home/circleci/project/target
+            ls
 
 workflows:
   version: 2
